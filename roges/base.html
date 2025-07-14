@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using My Package</title>
+  </head>
+  <body>
+    
+
+    <p id="displayText">Output: </p>
+    <button id="myButton"></button>
+    <script type="module">
+        //document.getElementById("myButton").addEventListener("click",main)
+        import {GoogleGenAI} from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm'
+
+        const ai = new GoogleGenAI({apiKey:"AIzaSyC1x0BJP60v5s-PaoMOkYFynnMdRYayBfw"});
+
+        async function main() {
+            const response = await ai.models.generateContentStream({
+            model: 'gemini-2.0-flash-001',
+            contents: 'corinthians'
+            });
+            for await (const chunk of response) {
+                document.getElementById("displayText").textContent += chunk.text;
+            console.log(chunk.text);
+            }
+        }
+
+          //main();
+    </script>
+  </body>
+</html>

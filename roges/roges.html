@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using My Package</title>
+  </head>
+  <body>
+    <label for ="displayText">input:</label>
+    <input type="text" id="query" placeholder="Your querry" required/>
+    <input type="button" id="myButton" value="Submit" onclick="myButton()"/>
+
+    <label id="xx">OOOO</label>
+    
+    <script type="module">
+        //document.getElementById("myButton").addEventListener("click",main)
+        import {GoogleGenAI} from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm'
+        const ai = new GoogleGenAI({apiKey:"AIzaSyC1x0BJP60v5s-PaoMOkYFynnMdRYayBfw"});
+    </script>
+
+    <script>
+        function myButton() {
+            debugger;
+            const query = document.getElementById("query").value;
+            
+            
+            //document.getElementById("xx").textContent =  query;
+
+            
+
+            
+
+            async function main() {
+            const response = await ai.models.generateContentStream({
+            model: 'gemini-2.5-flash',
+            contents: query,
+            });
+            for await (const chunk of response) {
+                displayText.textContent += chunk.text;
+                console.log(chunk.text);
+            }
+
+             
+            
+        }
+    }
+       
+    </script>
+
+
+
+
+    <!-- <script type="module">
+        document.getElementById("myButton").addEventListener("click",main)
+        import {GoogleGenAI} from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm'
+
+          const ai = new GoogleGenAI({apiKey:"AIzaSyC1x0BJP60v5s-PaoMOkYFynnMdRYayBfw"});
+        
+        async function main() {
+            const response = await ai.models.generateContentStream({
+            model: 'gemini-2.5-flash',
+            contents: document.getElementById("query"),
+            });
+            for await (const chunk of response) {
+                document.getElementById("displayText").textContent += chunk.text;
+            console.log(chunk.text);
+            }
+        }
+
+          main();
+    </script> -->
+  </body>
+</html>
